@@ -7,7 +7,7 @@ foodMeApp.factory('customer', function($rootScope, localStorage) {
 
   var customer = customerString ? JSON.parse(customerString) : {
     name: undefined,
-    address: undefined
+    password: undefined
   };
 
   $rootScope.$watch(function() { return customer; }, function() {

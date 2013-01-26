@@ -19,12 +19,12 @@
       </div>
 
       <div class="control-group">
-        <label class="control-label" for="address">Password</label>
+        <label class="control-label" for="password">Password</label>
         <div class="controls">
-          <input type="password" id="address" placeholder="secret"
+          <input type="password" id="password" placeholder="secret"
                  class="input-xlarge"
                  required
-                 ng-model="customerAddress">
+                 ng-model="customerPassword">
         </div>
       </div>
 
@@ -32,7 +32,7 @@
     <div class="modal-footer">
       <button class="btn btn-primary"
               ng-disabled="customerForm.$invalid"
-              ng-click="findRestaurants(customerName, customerAddress)">Log in</button>
+              ng-click="login(customerName, customerPassword)">Log in</button>
     </div>
   </div>
 </form>

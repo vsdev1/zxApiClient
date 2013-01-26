@@ -3,7 +3,7 @@
 foodMeApp.controller('RestaurantsController',
     function RestaurantsController($scope, customer, $location, Restaurant) {
 
-  if (!customer.address) {
+  if (!customer.password) {
     $location.url('/customer');
   }
 

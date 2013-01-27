@@ -50,6 +50,8 @@
 //		alert('signature=' + signature);
 	}
 
+module.exports(createSignature);
+
 // http://wiki.zanox.com/en/RESTful_API_V20110301
 // http://wiki.zanox.com/en/API_Most_Frequent_Use_Cases
 

@@ -6,11 +6,20 @@ foodMeApp.controller('RestaurantsController',
   //if (!customer.password) {
   var zxConnectCredentials = zxConnect.getCredentials();
   if (zxConnectCredentials.connectId === undefined || zxConnectCredentials.secretKey === undefined) {
-    // redirect to the zanox connect login page
-    //console.log($location.absUrl());
-    console.log('redirect to zx login page');
-    $window.location = 'https://auth.zanox.com/login?callback=' + $location.absUrl();
-    //$location.url('/customer');
+    console.log($location.absUrl());
+    var authtoken = $location.search()['authtoken'];
+    console.log('authtoken: ', authtoken);
+    //console.log($location.routeParams());
+    if (authtoken !== undefined) {
+      console.log('authtoken: ', authtoken);
+      // TODO: get zx connect session and set it to zxConnect service
+    } else {
+      // redirect to the zanox connect login page
+      //console.log($location.absUrl());
+      console.log('redirect to zx login page');
+      $window.location = 'https://auth.zanox.com/login?callback=' + $location.absUrl();
+      //$location.url('/customer');
+    } 
   }
 
   var filter = $scope.filter = {

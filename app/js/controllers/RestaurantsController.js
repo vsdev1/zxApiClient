@@ -1,10 +1,16 @@
 'use strict';
 
 foodMeApp.controller('RestaurantsController',
-    function RestaurantsController($scope, customer, $location, Restaurant) {
+    function RestaurantsController($scope, customer, $location, $window, Restaurant, zxConnect) {
 
-  if (!customer.password) {
-    $location.url('/customer');
+  //if (!customer.password) {
+  var zxConnectCredentials = zxConnect.getCredentials();
+  if (zxConnectCredentials.connectId === undefined || zxConnectCredentials.secretKey === undefined) {
+    // redirect to the zanox connect login page
+    //console.log($location.absUrl());
+    console.log('redirect to zx login page');
+    $window.location = 'https://auth.zanox.com/login?callback=' + $location.absUrl();
+    //$location.url('/customer');
   }
 
   var filter = $scope.filter = {

@@ -1,5 +1,13 @@
 'use strict';
 
+function getParameter(param) {
+            var val = document.URL;
+            var url = val.substr(val.indexOf(param))  
+            var n=url.replace(param+"=","");
+            //alert(n);
+            return n; 
+}
+
 foodMeApp.controller('RestaurantsController',
     function RestaurantsController($scope, customer, $location, $window, Restaurant, zxConnect) {
 
@@ -7,16 +15,23 @@ foodMeApp.controller('RestaurantsController',
   var zxConnectCredentials = zxConnect.getCredentials();
   if (zxConnectCredentials.connectId === undefined || zxConnectCredentials.secretKey === undefined) {
     console.log($location.absUrl());
-    var authtoken = $location.search()['authtoken'];
-    console.log('authtoken: ', authtoken);
+    //console.log($location.url());
+    var authtoken = getParameter('authtoken');
+    // remove #/:
+    authtoken = authtoken.substring(0, authtoken.length - 2);
+    console.log(authtoken.length);
     //console.log($location.routeParams());
-    if (authtoken !== undefined) {
+    if (authtoken.length > 0) { // TODO: check for undefined, null etc.
       console.log('authtoken: ', authtoken);
       // TODO: get zx connect session and set it to zxConnect service
     } else {
       // redirect to the zanox connect login page
       //console.log($location.absUrl());
       console.log('redirect to zx login page');
+      //var absUrl = $location.absUrl();
+      //absUrl = absUrl.substring(0, absUrl.length - 2);
+      //console.log('https://auth.zanox.com/login?callback=' + absUrl);
+      
       $window.location = 'https://auth.zanox.com/login?callback=' + $location.absUrl();
       //$location.url('/customer');
     } 

@@ -39,7 +39,7 @@ foodMeApp.controller('RestaurantsController',
     }
     var url = val.substr(indexOfParam)  
     var n=url.replace(param+"=","");
-    alert(n); 
+    //alert(n); 
     return n;
  }
 

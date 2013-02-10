@@ -1,10 +1,15 @@
+'use strict';
 	function createSignature(httpVerb, uriPath, secretKey) {
-		var input = createInput(httpVerb, uriPath, createTimestamp(), createNonce());
+		var timestamp = createTimestamp();
+		var nonce = createNonce();
+		var input = createInput(httpVerb, uriPath, timestamp, nonce);
 		// example for an input: GET/profilesMon, 09 Jun 2008 08:17:35 GMT01234567890123456789
 		var signature = createSignatureForInput(input, secretKey);
 		
-		console.log('signature=' + signature);
-		return signature;
+//		console.log('signature=' + signature);
+		var returnValue = {signature: signature, timestamp: timestamp, nonce: nonce};
+		console.log('signature:',returnValue);
+		return returnValue;
 	}
 	
 	function createInput(httpVerb, uriPath, timeStamp, nonce) {
@@ -39,7 +44,7 @@
 	
 	function createTimestamp() {
 		var date = new Date()
-    gmtDateString = date.toGMTString()
+    var gmtDateString = date.toGMTString()
     
     console.log('GMT date string=' + gmtDateString);
     return gmtDateString;
@@ -50,10 +55,15 @@
 //		alert('signature=' + signature);
 	}
 
-module.exports(createSignature);
+foodMeApp.factory('signature', function() {
+	return {
+		createSignature: createSignature
+	};
+});
 
 // http://wiki.zanox.com/en/RESTful_API_V20110301
 // http://wiki.zanox.com/en/API_Most_Frequent_Use_Cases
+
 
 
 	

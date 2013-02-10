@@ -1,7 +1,7 @@
 'use strict';
 
 foodMeApp.controller('RestaurantsController',
-    function RestaurantsController($scope, customer, $location, $window, Restaurant, zxConnect, zxConnectSessionFacade) {
+    function RestaurantsController($scope, customer, $location, $window, Restaurant, zxConnect, zxConnectSessionFacade, Profile, signature) {
 
   //if (!customer.password) {
   var zxConnectCredentials = zxConnect.getCredentials();
@@ -21,6 +21,12 @@ foodMeApp.controller('RestaurantsController',
         console.log('got zx connect session for authtoken: ', authtoken);
         console.log('********* zxConnectSession: ', zxConnectSession);
         zxConnect.setCredentials(zxConnectSession.connectId, zxConnectSession.secretKey);
+
+        // TODO: get the user profile (create profile service that calls the publisher api via nodejs proxy)
+        var uriPath = '/profiles'
+        var signatureHolder = signature.createSignature('GET', uriPath, zxConnect.getCredentials().secretKey);
+
+        var profile = Profile.get({connectid : zxConnect.getCredentials().connectId, date : signatureHolder.timestamp, "signature": signatureHolder.signature, nonce: signatureHolder.nonce});
       });
     } else {
       // redirect to the zanox connect login page
@@ -30,8 +36,6 @@ foodMeApp.controller('RestaurantsController',
       //$location.url('/customer');
     } 
   }
-
-  // TODO: get the user profile (create profile service that calls the publisher api via nodejs proxy)
 
   /*THIS FUNCTION IS TO FETCH STRING PARAMETER*/
  function getParameter(param) {

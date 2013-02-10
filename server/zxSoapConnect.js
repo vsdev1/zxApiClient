@@ -2,12 +2,13 @@
 https://github.com/substack/node-hat
 */
 var html = http = require('http')
-     , config = require('./config')
-     , soapTest = require('./soapTest')
+     , config = require('./config')          
+     , soap = require('soap') // see https://github.com/milewise/node-soap, install with 'npm install soap'
      , events = require('events')
      , crypto = require('crypto')
      , hat = require('hat')
      , logly = require( 'logly' )
+     , util = require('util')
      , os = require( 'os' );
      
 
@@ -89,16 +90,45 @@ var pad = function (val, len) {
 	return val;
 };
 
-var execute = function (authToken) {
-var signature = buildHttpRequestOptions();
-console.log('signature: ', signature);
 
-console.log(config.api.public_key);
+var getZanoxConnectSession = function(authToken, publicKey, signature, nonce, timestamp, res) {
+  var url = 'https://auth.zanox.com/wsdl/2011-05-01';
+  var args = {authToken: authToken, publicKey: publicKey, signature: signature, nonce: nonce, timestamp: timestamp};
+  console.log('*****');
+  console.log(args);
+  soap.createClient(url, function(err, client) {
+    //console.log(client);
+    //client.describe();
+      client.getSession(args, function(err, result) {
+        console.log(typeof err);
+        if (!err) {
+          console.log(util.inspect(result, showHidden=false, depth=4, colorize=true));
+          var credentials = {
+            connectId: result.session[0].connectId,
+            secretKey: result.session[0].secretKey[0]
+          };
+          console.log('zx connect credentials: ', credentials);
+          res.send(200, credentials);
+        } else {
+          console.log(util.inspect(err, showHidden=false, depth=4, colorize=true));
+          //console.log(err);
+          console.log(err);
+          res.send(500, err);
+        }
+      });
+  });
+};
 
-//var authToken = '28CED514E67BD089C14B2FF4883909DE98F57614144A0EE58BE3F8B0885A2D86'; 
-soapTest(authToken, config.api.public_key, signature.signature, signature.nonce, signature.timestamp);
+var execute = function (authToken, res) {
+    var signature = buildHttpRequestOptions();
+    console.log('signature: ', signature);
 
-console.log('Done!');
+    console.log(config.api.public_key);
+
+    //var authToken = '28CED514E67BD089C14B2FF4883909DE98F57614144A0EE58BE3F8B0885A2D86'; 
+    getZanoxConnectSession(authToken, config.api.public_key, signature.signature, signature.nonce, signature.timestamp, res);
+
+    console.log('Done!');
 }
 
 module.exports = execute;

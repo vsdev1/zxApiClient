@@ -17,10 +17,11 @@ foodMeApp.controller('RestaurantsController',
       console.log('authtoken: ', authtoken);
       
       // TODO: get zx connect session and set it to zxConnect service
-      var zxConnectSession = zxConnectSessionFacade.get({id:authtoken}, function() {
+      var zxConnectSession = zxConnectSessionFacade.get({authtoken:authtoken}, function() {
         console.log('got zx connect session for authtoken: ', authtoken);
+        console.log('********* zxConnectSession: ', zxConnectSession);
+        zxConnect.setCredentials(zxConnectSession.connectId, zxConnectSession.secretKey);
       });
-      console.log('zxConnectSession: ', zxConnectSession);
     } else {
       // redirect to the zanox connect login page
       //console.log($location.absUrl());
@@ -29,6 +30,8 @@ foodMeApp.controller('RestaurantsController',
       //$location.url('/customer');
     } 
   }
+
+  // TODO: get the user profile (create profile service that calls the publisher api via nodejs proxy)
 
   /*THIS FUNCTION IS TO FETCH STRING PARAMETER*/
  function getParameter(param) {

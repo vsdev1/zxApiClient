@@ -38,15 +38,13 @@ exports.start = function(PORT, STATIC_DIR, DATA_FILE) {
   app.use(express.bodyParser());
 
   // zxConnect API
-  console.log(1111);
   var ZX_CONNECT_API_URL = '/api/zxConnect';
   var ZX_CONNECT_API_URL_AUTHTOKEN = ZX_CONNECT_API_URL + '/:id';
   app.get(ZX_CONNECT_API_URL_AUTHTOKEN, function(req, res, next) {
     // get the session from the zanox connect API
-  console.log(2222);
     var authtoken = req.params.id;
-    zxSoapConnect(authtoken);
-    res.send(200, 'got connect session for authtoken: ' + authtoken);
+    zxSoapConnect(authtoken, res);
+    //res.send(200, 'got connect session for authtoken: ' + authtoken);
   });
 
   // API

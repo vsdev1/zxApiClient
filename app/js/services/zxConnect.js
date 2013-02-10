@@ -8,6 +8,7 @@ foodMeApp.factory('zxConnect', function() {
 
   return {
   	setCredentials: function(connectId, secretKey) {
+      console.log('Set the zx connect credentials.')
   		that.connectId = connectId;
   		that.secretKey = secretKey;
   	},

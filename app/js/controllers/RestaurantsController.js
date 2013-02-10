@@ -1,26 +1,47 @@
 'use strict';
 
 foodMeApp.controller('RestaurantsController',
-    function RestaurantsController($scope, customer, $location, $window, Restaurant, zxConnect) {
+    function RestaurantsController($scope, customer, $location, $window, Restaurant, zxConnect, zxConnectSessionFacade) {
 
   //if (!customer.password) {
   var zxConnectCredentials = zxConnect.getCredentials();
   if (zxConnectCredentials.connectId === undefined || zxConnectCredentials.secretKey === undefined) {
     console.log($location.absUrl());
-    var authtoken = $location.search()['authtoken'];
-    console.log('authtoken: ', authtoken);
+    //var authtoken = $location.search()['authtoken'];
+    var authtoken = getParameter('authtoken');
+    //console.log('authtoken: ', authtoken);
     //console.log($location.routeParams());
     if (authtoken !== undefined) {
+      // remove last 2 letters from authtoken (comes from angular: #/)
+      authtoken = authtoken.substr(0, authtoken.length - 2);
       console.log('authtoken: ', authtoken);
+      
       // TODO: get zx connect session and set it to zxConnect service
+      var zxConnectSession = zxConnectSessionFacade.get({id:authtoken}, function() {
+        console.log('got zx connect session for authtoken: ', authtoken);
+      });
+      console.log('zxConnectSession: ', zxConnectSession);
     } else {
       // redirect to the zanox connect login page
       //console.log($location.absUrl());
       console.log('redirect to zx login page');
-      $window.location = 'https://auth.zanox.com/login?callback=' + $location.absUrl();
+      $window.location = 'https://auth.zanox.com/login?appid=D71378049E083896051C&callback=' + $location.absUrl();
       //$location.url('/customer');
     } 
   }
+
+  /*THIS FUNCTION IS TO FETCH STRING PARAMETER*/
+ function getParameter(param) {
+    var val = document.URL;
+    var indexOfParam = val.indexOf(param);
+    if (indexOfParam === -1) {
+      return undefined;
+    }
+    var url = val.substr(indexOfParam)  
+    var n=url.replace(param+"=","");
+    alert(n); 
+    return n;
+ }
 
   var filter = $scope.filter = {
     cuisine: [],

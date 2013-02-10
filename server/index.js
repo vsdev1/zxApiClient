@@ -2,6 +2,7 @@ var express = require('express');
 var fs = require('fs');
 var open = require('open');
 var zxSoapConnect = require('./zxSoapConnect');
+var https = require('https');
 
 
 var RestaurantRecord = require('./model').Restaurant;
@@ -45,6 +46,55 @@ exports.start = function(PORT, STATIC_DIR, DATA_FILE) {
     var authtoken = req.params.id;
     zxSoapConnect(authtoken, res);
     //res.send(200, 'got connect session for authtoken: ' + authtoken);
+  });
+
+  // publisher API (profiles as first try)
+  var ZX_PUBLISHER_API_BASE_URL = '/api/publisher/*';
+  app.get(ZX_PUBLISHER_API_BASE_URL, function(req, res, next) {
+    // get the session from the zanox connect API
+    //var authtoken = req.params.id;
+    //zxSoapConnect(authtoken, res);
+    console.log('publisher API call: ', req.url);
+
+    // parse URL: '/api/publisher/profiles?connectid=7C800204645B3065D201&date=Sun,+10+Feb+2013+19:12:20+GMT&nonce=bee2314a1af663354dbd5b04aab71dee&signature=M4hoV6ze9kYjUycbYmY4Ph4GzCo%3D'
+    var targetUrl = req.url.substr(14, req.url.length);
+    //targetUrl = targetUrl.replace('?', '/');
+    targetUrl = 'https://api.zanox.com/json/2011-03-01' + targetUrl;
+    console.log(targetUrl);
+
+    https.get(targetUrl, function(res1) {
+      var data = '';
+
+      res1.on('data', function (chunk){
+        data += chunk;
+      });
+
+      res1.on('end',function(){
+        var obj = JSON.parse(data);
+        console.log(obj);
+        res.send(200, data);
+      });
+
+    }).on('error', function(e) {
+      console.log("Got error: " + e.message);
+    });
+
+/*    var options = {
+      hostname: 'https://api.zanox.com',
+      port: 80,
+      path: 'json/2011-03-01' + targetUrl,
+      method: 'GET'
+    };
+
+    var req = http.request(options, function(res) {
+      console.log('STATUS: ' + res.statusCode);
+      console.log('HEADERS: ' + JSON.stringify(res.headers));
+      res.setEncoding('utf8');
+      res.on('data', function (chunk) {
+        console.log('BODY: ' + chunk);
+      });
+    });*/
+
   });
 
   // API

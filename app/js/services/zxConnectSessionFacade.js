@@ -12,7 +12,7 @@ foodMeApp.factory('Profile', function($resource, signature, zxConnect) {
 
 	var resource = $resource(uriPath, { },
   	{
-    get : { method : 'GET', isArray : true, encoding:true} 
+    get : { method : 'GET', isArray : false, encoding:true} 
   	});
 
   	return resource;

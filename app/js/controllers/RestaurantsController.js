@@ -26,7 +26,11 @@ foodMeApp.controller('RestaurantsController',
         var uriPath = '/profiles'
         var signatureHolder = signature.createSignature('GET', uriPath, zxConnect.getCredentials().secretKey);
 
-        var profile = Profile.get({connectid : zxConnect.getCredentials().connectId, date : signatureHolder.timestamp, "signature": signatureHolder.signature, nonce: signatureHolder.nonce});
+        var profile = Profile.get({connectid : zxConnect.getCredentials().connectId, date : signatureHolder.timestamp, "signature": signatureHolder.signature, nonce: signatureHolder.nonce},
+          function() {
+            console.log('Got profile: ', profile.profileItem[0]);
+          }
+        );
       });
     } else {
       // redirect to the zanox connect login page

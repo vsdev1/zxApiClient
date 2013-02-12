@@ -3,4 +3,6 @@ talk with node.js to the zanox connect API via SOAP: https://github.com/milewise
 npm install
 
 apt-get install build-essential
-sudo npm install -g soap
+npm install soap
+npm install hat
+npm install logly

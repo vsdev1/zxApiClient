@@ -2,4 +2,5 @@ talk with node.js to the zanox connect API via SOAP: https://github.com/milewise
 --sudo npm install express
 npm install
 
-
+apt-get install build-essential
+sudo npm install -g soap

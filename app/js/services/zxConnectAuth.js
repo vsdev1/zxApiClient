@@ -1,8 +1,9 @@
 'use strict';
 
+// inject this service in all controllers
+// TODO: inject into central point
 foodMeApp.factory('zxConnectAuth', function($location, $window, zxConnect, zxConnectSessionFacade, Profile, signature) {
 
-var checkLogin = function() {
   var zxConnectCredentials = zxConnect.getCredentials();
   if (zxConnectCredentials.connectId === undefined || zxConnectCredentials.secretKey === undefined) {
     var authtoken = getParameter('authtoken');
@@ -33,9 +34,8 @@ var checkLogin = function() {
       $window.location = loginPageUrl;
     }
   } 
-}
 
-return {checkLogin: checkLogin};
+//return {checkLogin: checkLogin};
 
  // utility function that extracts a string parameter from the URL
  function getParameter(param) {

@@ -1,9 +1,9 @@
 'use strict';
 
 foodMeApp.controller('RestaurantsController',
-    function RestaurantsController($scope, customer, $location, $window, Restaurant, zxConnect, zxConnectSessionFacade, Profile, signature) {
+    function RestaurantsController(zxConnectAuth, $scope, customer, $location, $window, Restaurant, zxConnect, zxConnectSessionFacade, Profile, signature) {
 
-  //if (!customer.password) {
+/*  //if (!customer.password) {
   var zxConnectCredentials = zxConnect.getCredentials();
   if (zxConnectCredentials.connectId === undefined || zxConnectCredentials.secretKey === undefined) {
     console.log($location.absUrl());
@@ -39,7 +39,7 @@ foodMeApp.controller('RestaurantsController',
       $window.location = 'https://auth.zanox.com/login?appid=D71378049E083896051C&callback=' + $location.absUrl();
       //$location.url('/customer');
     } 
-  }
+  }*/
 
   /*THIS FUNCTION IS TO FETCH STRING PARAMETER*/
  function getParameter(param) {

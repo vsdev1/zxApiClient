@@ -35,8 +35,6 @@ foodMeApp.factory('zxConnectAuth', function($location, $window, zxConnect, zxCon
     }
   } 
 
-//return {checkLogin: checkLogin};
-
  // utility function that extracts a string parameter from the URL
  function getParameter(param) {
     var val = document.URL;

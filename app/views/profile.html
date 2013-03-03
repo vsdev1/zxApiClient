@@ -1,0 +1,27 @@
+    <table class="table table-hover table-striped">
+      <tr>
+        <td>
+            <b>id: </b> {{profile["@id"]}}
+        </td>
+     </tr>
+     <tr>
+        <td>
+            <b>AdRank: </b> {{profile.adrank}}
+        </td>
+     </tr>
+     <tr>
+        <td>
+            <b>Address: </b> {{profile.street1}}, {{profile.zipcode}} {{profile.city}}
+        </td>
+     </tr>
+     <tr>
+        <td>
+            <b>Name: </b> {{profile.firstName}} {{profile.lastName}}
+        </td>
+     </tr>
+     <tr>
+        <td>
+            <b>User name: </b> {{profile.userName}}
+        </td>
+      </tr>
+    </table>

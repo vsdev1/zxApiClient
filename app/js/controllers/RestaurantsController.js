@@ -3,57 +3,6 @@
 foodMeApp.controller('RestaurantsController',
     function RestaurantsController(zxConnectAuth, $scope, customer, $location, $window, Restaurant, zxConnect, zxConnectSessionFacade, Profile, signature) {
 
-/*  //if (!customer.password) {
-  var zxConnectCredentials = zxConnect.getCredentials();
-  if (zxConnectCredentials.connectId === undefined || zxConnectCredentials.secretKey === undefined) {
-    console.log($location.absUrl());
-    //var authtoken = $location.search()['authtoken'];
-    var authtoken = getParameter('authtoken');
-    //console.log('authtoken: ', authtoken);
-    //console.log($location.routeParams());
-    if (authtoken !== undefined) {
-      // remove last 2 letters from authtoken (comes from angular: #/)
-      authtoken = authtoken.substr(0, authtoken.length - 2);
-      console.log('authtoken: ', authtoken);
-      
-      // TODO: get zx connect session and set it to zxConnect service
-      var zxConnectSession = zxConnectSessionFacade.get({authtoken:authtoken}, function() {
-        console.log('got zx connect session for authtoken: ', authtoken);
-        console.log('********* zxConnectSession: ', zxConnectSession);
-        zxConnect.setCredentials(zxConnectSession.connectId, zxConnectSession.secretKey);
-
-        // TODO: get the user profile (create profile service that calls the publisher api via nodejs proxy)
-        var uriPath = '/profiles'
-        var signatureHolder = signature.createSignature('GET', uriPath, zxConnect.getCredentials().secretKey);
-
-        var profile = Profile.get({connectid : zxConnect.getCredentials().connectId, date : signatureHolder.timestamp, "signature": signatureHolder.signature, nonce: signatureHolder.nonce},
-          function() {
-            console.log('Got profile: ', profile.profileItem[0]);
-          }
-        );
-      });
-    } else {
-      // redirect to the zanox connect login page
-      //console.log($location.absUrl());
-      console.log('redirect to zx login page');
-      $window.location = 'https://auth.zanox.com/login?appid=D71378049E083896051C&callback=' + $location.absUrl();
-      //$location.url('/customer');
-    } 
-  }*/
-
-  /*THIS FUNCTION IS TO FETCH STRING PARAMETER*/
- function getParameter(param) {
-    var val = document.URL;
-    var indexOfParam = val.indexOf(param);
-    if (indexOfParam === -1) {
-      return undefined;
-    }
-    var url = val.substr(indexOfParam)  
-    var n=url.replace(param+"=","");
-    //alert(n); 
-    return n;
- }
-
   var filter = $scope.filter = {
     cuisine: [],
     price: null,

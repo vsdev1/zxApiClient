@@ -1,6 +1,6 @@
 'use strict';
 
-foodMeApp.controller('RestaurantsController',
+zxApiClient.controller('RestaurantsController',
     function RestaurantsController(zxConnectAuth, $scope, customer, $location, $window, Restaurant, zxConnect, zxConnectSessionFacade, Profile, signature) {
 
   var filter = $scope.filter = {

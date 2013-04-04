@@ -1,6 +1,6 @@
 'use strict';
 
-foodMeApp.directive('fmRating', function() {
+zxApiClient.directive('fmRating', function() {
   return {
     restrict: 'E',
     scope: {

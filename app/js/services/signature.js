@@ -55,7 +55,7 @@
 //		alert('signature=' + signature);
 	}
 
-foodMeApp.factory('signature', function() {
+zxApiClient.factory('signature', function() {
 	return {
 		createSignature: createSignature
 	};

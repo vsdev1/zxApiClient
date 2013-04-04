@@ -1,3 +1,3 @@
 'use strict';
 
-beforeEach(module('foodMeApp'));
+beforeEach(module('zxApiClient'));

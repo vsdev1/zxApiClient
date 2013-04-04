@@ -1,6 +1,6 @@
 'use strict';
 
-foodMeApp.directive('fmDeliverTo', function() {
+zxApiClient.directive('fmDeliverTo', function() {
   return {
     restrict: 'E',
     templateUrl: 'js/directives/fmDeliverTo.html',

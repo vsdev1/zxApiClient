@@ -1,6 +1,6 @@
 'use strict';
 
-foodMeApp.factory('zxConnect', function() {
+zxApiClient.factory('zxConnect', function() {
   var connectId;
   var secretKey;
 

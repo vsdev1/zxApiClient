@@ -1,12 +1,12 @@
 'use strict';
 
 // TODO: use post instead, see http://www.yearofmoo.com/2012/08/use-angularjs-to-power-your-web-application.html
-foodMeApp.factory('zxConnectSessionFacade', function($resource) {
+zxApiClient.factory('zxConnectSessionFacade', function($resource) {
   return $resource('/api/zxConnect/:authtoken', {id: '@authoken'});
 });
 
 var publisherApiBasePath = '/api/publisher/'
-foodMeApp.factory('Profile', function($resource, signature, zxConnect) {
+zxApiClient.factory('Profile', function($resource, signature, zxConnect) {
 	var uriPath = publisherApiBasePath + 'profiles/';
 	//var signatureHolder = signature.createSignature('GET', uriPath, zxConnect.getCredentials().secretKey);
 

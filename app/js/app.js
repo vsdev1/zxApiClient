@@ -1,8 +1,8 @@
 'use strict';
 
-var foodMeApp = angular.module('foodMeApp', ['ngResource']);
+var zxApiClient = angular.module('zxApiClient', ['ngResource']);
 
-foodMeApp.config(function($routeProvider) {
+zxApiClient.config(function($routeProvider) {
 
   $routeProvider.
       when('/', {

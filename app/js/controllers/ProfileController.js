@@ -1,6 +1,6 @@
 'use strict';
 
-foodMeApp.controller('ProfileController', function RestaurantsController(zxConnectAuth, zxConnect, signature, $scope, Profile) {
+zxApiClient.controller('ProfileController', function RestaurantsController(zxConnectAuth, zxConnect, signature, $scope, Profile) {
 
         // get the user profile via profile service that calls the publisher api via nodejs proxy
         var uriPath = '/profiles'

@@ -10,7 +10,7 @@ config.api.datatype = 'json';
 config.api.api_version = '2011-03-01';
 	
 // User specific conf
-config.api.secret_key = ''; 
+config.api.secret_key = '3a72957DA19848+c82503a73E50736/12fd7b544'; 
 config.api.connect_id = '7C800204645B3065D201'; 
 
 module.exports = config;

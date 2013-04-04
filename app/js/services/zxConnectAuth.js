@@ -2,7 +2,7 @@
 
 // inject this service in all controllers
 // TODO: inject into central point
-foodMeApp.factory('zxConnectAuth', function($location, $window, zxConnect, zxConnectSessionFacade, Profile, signature) {
+zxApiClient.factory('zxConnectAuth', function($location, $window, zxConnect, zxConnectSessionFacade, Profile, signature) {
 
   var zxConnectCredentials = zxConnect.getCredentials();
   if (zxConnectCredentials.connectId === undefined || zxConnectCredentials.secretKey === undefined) {

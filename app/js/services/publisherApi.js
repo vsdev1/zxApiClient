@@ -1,8 +1,8 @@
 'use strict';
 
-/* Services */
+/* zanox publisher API facade */
 
-angular.module('services', ['ngResource'], function($provide) {
+angular.module('publisherApi', ['ngResource'], function($provide) {
 
 	  $provide.factory('Product', function($resource, TokenHandler){
 		    var resource = $resource('/assets/proxy/https://api.zanox.com/json/2011-03-01/programs' , {}, {

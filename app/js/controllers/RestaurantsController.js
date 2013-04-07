@@ -1,7 +1,7 @@
 'use strict';
 
 zxApiClient.controller('RestaurantsController',
-    function RestaurantsController(zxConnectAuth, $scope, customer, $location, $window, Restaurant, zxConnect, zxConnectSessionFacade, Profile, signature) {
+    function RestaurantsController(gateKeeper, $scope, customer, $location, $window, Restaurant) {
 
   var filter = $scope.filter = {
     cuisine: [],

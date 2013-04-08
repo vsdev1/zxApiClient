@@ -1,18 +1,16 @@
 {
-  "name": "zx API client",
+  "name": "zanox_api_client",
   "version": "0.0.1",
-  "description": "Super awesome tutorial.",
+  "description": "zanox publisher API client",
   "keywords": [],
-  "homepage": "http://angularjs.org/",
+  "homepage": "http://wiki.zanox.com/en/Web_Services",
   "repository": {
     "type": "git",
-    "url": "git://github.com/angular/foodme.git"
+    "url": "git@github.com:vsdev1/zxApiClient.git"
   },
-  "author": "AngularJS Team",
+  "author": "zanox API team",
   "contributors": [
-    "Igor Minár <igor@angularjs.org",
-    "Miško Hevery <misko@angularjs.org",
-    "Vojta Jína <vojta@angularjs.org"
+    "Volker Sommerfeld <volker.sommerfeld@zanox.com"
   ],
   "main": "scripts/server.js",
   "scripts": {
@@ -22,7 +20,7 @@
     "express": ">= 3.0.0",
     "csv": ">= 0.2.1",
     "open": ">= 0.0.2",
-    "testacular": "canary",
+    "karma": "canary",
     "soap": ">=0.2.7" ,
     "hat": ">=0.0.3",
     "logly": ">=0.3.11"

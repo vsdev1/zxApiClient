@@ -1,6 +1,6 @@
 'use strict';
 
-var zxApiClient = angular.module('zxApiClient', ['ngResource', 'auth']);
+var zxApiClient = angular.module('zxApiClient', ['ngResource', 'auth', 'publisherApi']);
 
 zxApiClient.config(function($routeProvider) {
 

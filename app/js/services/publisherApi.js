@@ -4,6 +4,8 @@
 
 angular.module('publisherApi', ['ngResource'], function($provide) {
 
+	  var publisherApiBasePath = '/api/publisher/';
+
 	  $provide.factory('Product', function($resource, TokenHandler){
 		    var resource = $resource('/assets/proxy/https://api.zanox.com/json/2011-03-01/programs' , {}, {
 		    	query : {method:'GET', params:{}, isArray:false, encoding:true},
@@ -15,11 +17,11 @@ angular.module('publisherApi', ['ngResource'], function($provide) {
 		});
 		
 		$provide.factory('Profile', function($resource, TokenHandler){
-		    var resource = $resource('/assets/proxy/https://api.zanox.com/json/2011-03-01/profiles/' , {}, {
+		    var resource = $resource(publisherApiBasePath + 'profiles/' , {}, {
 		    	query : {method:'GET', params:{}, isArray:false, encoding:true, uri: 'GET/profiles/'},
 		    });
 		    
-		    resource = TokenHandler.wrapSignatureActions( resource, ["query"] , ["GET/profiles/"]);
+		    resource = TokenHandler.wrapSignatureActions(resource, ["query"], "GET" , ["/profiles"]);
 
   			return resource;
 		});
@@ -76,5 +78,76 @@ angular.module('publisherApi', ['ngResource'], function($provide) {
 		  return $resource('/assets/rest/connect' , {}, {
 		    	get : {method:'GET', params:{}, isArray:false}
 		    });
+		});
+
+	  $provide.factory('TokenHandler', function(zxConnect, signature) {
+		  var tokenHandler = {};
+
+		  // wraps given actions of a resource to send auth token
+		  // with every request
+		  tokenHandler.wrapActions = function(resource, actions) {
+		    // copy original resource
+		    var wrappedResource = resource;
+		    // loop through actions and actually wrap them
+		    for (var i=0; i < actions.length; i++) {
+		      tokenWrapper( wrappedResource, actions[i] );
+		    };
+		    // return modified copy of resource
+		    return wrappedResource;
+		  };
+		  
+		    // wraps resource action to send request with auth token
+		  var tokenWrapper = function(resource, action) {
+		    // copy original action
+		    resource['_' + action]  = resource[action];
+		    // create new action wrapping the original
+		    // and sending token
+		    resource[action] = function(data, success, error){
+		      return resource['_' + action](
+		        // call action with provided data and
+		        // appended access_token
+		        angular.extend({}, data || {},
+		          {connectId: zxConnect.getCredentials().connectId}),
+		        success,
+		        error
+		      );
+		    };
+		  };
+		  
+		  // wraps given actions of a resource to send auth token
+		  // with every request
+		  tokenHandler.wrapSignatureActions = function(resource, actions, protocol, uris) {
+		    // copy original resource
+		    var wrappedResource = resource;
+		    // loop through actions and actually wrap them
+		    for (var i=0; i < actions.length; i++) {
+		      tokenWrapperSignature(wrappedResource, actions[i], protocol, uris[i]);
+		    };
+		    // return modified copy of resource
+		    return wrappedResource;
+		  };
+		  
+		    // wraps resource action to send request with auth token
+		  var tokenWrapperSignature = function(resource, action, protocol, uri) {
+		    // copy original action
+		    resource['_' + action]  = resource[action];
+		    // create new action wrapping the original
+		    // and sending token
+		    
+		    resource[action] = function(data, header, success, error) {
+		      var signatureHolder = signature.createSignature(protocol, uri, zxConnect.getCredentials().secretKey)
+		      return resource['_' + action](
+		        // call action with provided data and
+		        // appended access_token
+		        angular.extend({}, data || {},
+		          {connectId: zxConnect.getCredentials().connectId, nonce : signatureHolder.nonce, date : signatureHolder.timestamp, signature: signatureHolder.signature}),
+		        //headers: { 'Auth-Nonce-Response': 'adad'},
+		        success,
+		        error
+		      );
+		    };
+		  };
+
+		  return tokenHandler;
 		});
 	});

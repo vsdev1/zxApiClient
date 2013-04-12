@@ -7,11 +7,13 @@ angular.module('publisherApi', ['ngResource'], function($provide) {
 	  var publisherApiBasePath = '/api/publisher/';
 
 	  $provide.factory('Product', function($resource, TokenHandler){
-		    var resource = $resource('/assets/proxy/https://api.zanox.com/json/2011-03-01/programs' , {}, {
+	  		//TODO: hard-coded values just for testing
+	  		//http://api.zanox.com/xml/2011-03-01/products?programs=2157&q=iphone&connectid=A5FD46643F4AD67F6671
+		    var resource = $resource(publisherApiBasePath + 'products/', {programs: 2157, q: 'iphone'},  {
 		    	query : {method:'GET', params:{}, isArray:false, encoding:true},
 		    });
 		    
-		    resource = TokenHandler.wrapActions( resource, ["query", "update", "save"] );
+		    resource = TokenHandler.wrapActions(resource, ["query"], ["GET"], ["/products"]);
 
   			return resource;
 		});
@@ -21,7 +23,7 @@ angular.module('publisherApi', ['ngResource'], function($provide) {
 		    	query : {method:'GET', params:{}, isArray:false, encoding:true, uri: 'GET/profiles/'},
 		    });
 		    
-		    resource = TokenHandler.wrapSignatureActions(resource, ["query"], "GET" , ["/profiles"]);
+		    resource = TokenHandler.wrapSignatureActions(resource, ["query"], ["GET"] , ["/profiles"]);
 
   			return resource;
 		});
@@ -107,7 +109,9 @@ angular.module('publisherApi', ['ngResource'], function($provide) {
 		        // call action with provided data and
 		        // appended access_token
 		        angular.extend({}, data || {},
-		          {connectId: zxConnect.getCredentials().connectId}),
+		        	// TODO: this is just for testing products, the line below is the correct one
+		          {connectId: 'A5FD46643F4AD67F6671'}),
+//		          {connectId: zxConnect.getCredentials().connectId}),
 		        success,
 		        error
 		      );
@@ -116,12 +120,12 @@ angular.module('publisherApi', ['ngResource'], function($provide) {
 		  
 		  // wraps given actions of a resource to send auth token
 		  // with every request
-		  tokenHandler.wrapSignatureActions = function(resource, actions, protocol, uris) {
+		  tokenHandler.wrapSignatureActions = function(resource, actions, protocols, uris) {
 		    // copy original resource
 		    var wrappedResource = resource;
 		    // loop through actions and actually wrap them
 		    for (var i=0; i < actions.length; i++) {
-		      tokenWrapperSignature(wrappedResource, actions[i], protocol, uris[i]);
+		      tokenWrapperSignature(wrappedResource, actions[i], protocols[i], uris[i]);
 		    };
 		    // return modified copy of resource
 		    return wrappedResource;

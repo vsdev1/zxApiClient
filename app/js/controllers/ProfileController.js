@@ -1,7 +1,7 @@
 'use strict';
 
 //dependency to Product is just for testing
-zxApiClient.controller('ProfileController', function ProfileController($scope, Profile, Product) {
+zxApiClient.controller('ProfileController', function ProfileController($scope, Profile, Product, Programs) {
         var profile = Profile.query({}, 
           function() {
             console.log('Got profile: ', profile.profileItem[0]);
@@ -27,4 +27,12 @@ zxApiClient.controller('ProfileController', function ProfileController($scope, P
           }
         );
 
+        var programs = Programs.query({}, 
+          function() {
+            console.log('Got programs: ', programs);
+          }, 
+          function() {
+          	console.log('onError');
+          }
+        );
 });

@@ -13,7 +13,7 @@ angular.module('publisherApi', ['ngResource'], function($provide) {
 		    	query : {method:'GET', params:{}, isArray:false, encoding:true},
 		    });
 		    
-		    resource = TokenHandler.wrapActions(resource, ["query"], ["GET"], ["/products"]);
+		    resource = TokenHandler.wrapActions(resource, ["query"]);
 
   			return resource;
 		});
@@ -29,49 +29,49 @@ angular.module('publisherApi', ['ngResource'], function($provide) {
 		});
 
 	    $provide.factory('Balance', function($resource, TokenHandler){
-		    var resource = $resource('/assets/proxy/https://api.zanox.com/json/2011-03-01/payments/balances/' , {}, {
+		    var resource = $resource(publisherApiBasePath + 'payments/balances/' , {}, {
 		    	query : {method:'GET', params:{}, isArray:false, encoding:true},
 		    });
 		    
-		    resource = TokenHandler.wrapSignatureActions( resource, ["query"] , ["GET/payments/balances/"]);
+		    resource = TokenHandler.wrapSignatureActions( resource, ["query"] , ["GET"], ["/payments/balances/"]);
 
   			return resource;
 		});	
 		
 		$provide.factory('BankAccounts', function($resource, TokenHandler){
-		    var resource = $resource('/assets/proxy/https://api.zanox.com/json/2011-03-01/payments/bankaccounts/' , {}, {
+		    var resource = $resource(publisherApiBasePath + 'payments/bankaccounts/' , {}, {
 		    	query : {method:'GET', params:{}, isArray:false, encoding:true},
 		    });
 		    
-		    resource = TokenHandler.wrapSignatureActions( resource, ["query"] , ["GET/payments/bankaccounts/"]);
+		    resource = TokenHandler.wrapSignatureActions( resource, ["query"] , ["GET"], ["/payments/bankaccounts/"]);
 
   			return resource;
 		});	
 		$provide.factory('ProgramApplication', function($resource, TokenHandler){
-		    var resource = $resource('/assets/proxy/https://api.zanox.com/json/2011-03-01/programapplications/' , {}, {
+		    var resource = $resource(publisherApiBasePath + 'programapplications/' , {}, {
 		    	query : {method:'GET', params:{}, isArray:false, encoding:true},
 		    });
 		    
-		    resource = TokenHandler.wrapSignatureActions( resource, ["query"] , ["GET/programapplications/"]);
+		    resource = TokenHandler.wrapSignatureActions( resource, ["query"] , ["GET"], ["/programapplications"]);
 
   			return resource;
 		});
 		$provide.factory('Report', function($resource, TokenHandler){
-		    var resource = $resource('/assets/proxy/https://api.zanox.com/json/2011-03-01/reports/basic/' , {}, {
+		    var resource = $resource(publisherApiBasePath + 'reports/basic/' , {}, {
 		    	query : {method:'GET', params:{currency:'EUR',groupby:'month',fromdate:'2012-01-01', todate:'2012-12-02'}, isArray:false, encoding:true},
 		    });
 		    
-		    resource = TokenHandler.wrapSignatureActions( resource, ["query"] , ["GET/reports/basic/"]);
+		    resource = TokenHandler.wrapSignatureActions( resource, ["query"] , ["GET"], ["/reports/basic/"]);
 
   			return resource;
 		});
 		
-	  $provide.factory('Products', function($resource, TokenHandler){
-		    var resource = $resource('/assets/proxy/https://api.zanox.com/json/2011-03-01/programs/program/:programId' , {}, {
+	  $provide.factory('Programs', function($resource, TokenHandler){
+		    var resource = $resource(publisherApiBasePath + 'programs/' , {}, {
 		    	get : {method:'GET', params:{}, isArray:false, encoding:true}
 		    });
 		    
-		    resource = TokenHandler.wrapActions( resource, ["get", "update", "save"] );
+		    resource = TokenHandler.wrapActions(resource, ["query"]);
 
   			return resource;
 		});

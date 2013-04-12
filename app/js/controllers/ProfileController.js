@@ -1,16 +1,16 @@
 'use strict';
 
 // TODO: only the dependency to Profile should be here, the others are just for testing
-zxApiClient.controller('ProfileController', function ProfileController($scope, Profile, Product, Programs, ProgramApplication, Report) {
+zxApiClient.controller('ProfileController', function ProfileController($scope, Profile, Product, Programs, ProgramApplication, Report, Balance, BankAccounts) {
         var profile = Profile.query({}, 
           function() {
             console.log('Got profile: ', profile.profileItem[0]);
 
             $scope.profile = profile.profileItem[0];
           }, 
-          function() {
-          	console.log('onError for profile, TODO: this is the error callback and i do not understand why it is fired');
-            console.log('Got profile: ', profile.profileItem[0]);
+          function(error) {
+          	console.log('onError for profile, TODO: this is the error callback and i do not understand why it is fired: ', error);
+            console.log('Got profile in error callback: ', profile.profileItem[0]);
 
             $scope.profile = profile.profileItem[0];
           }
@@ -52,6 +52,23 @@ zxApiClient.controller('ProfileController', function ProfileController($scope, P
           }, 
           function(error) {
           	console.log('onError for report, TODO: this is the error callback and i do not understand why it is fired:', error);
+          }
+        );
+
+        var balance = Balance.query({}, 
+          function() {
+            console.log('Got balance: ', balance);
+          }, 
+          function(error) {
+          	console.log('onError for balance, TODO: this is the error callback and i do not understand why it is fired:', error);
+          }
+        );
+        var bankAccounts = BankAccounts.query({}, 
+          function() {
+            console.log('Got bank accounts: ', bankAccounts);
+          }, 
+          function(error) {
+          	console.log('onError for bank accounts, TODO: this is the error callback and i do not understand why it is fired:', error);
           }
         );
 });

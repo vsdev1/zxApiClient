@@ -33,7 +33,7 @@ angular.module('publisherApi', ['ngResource'], function($provide) {
 		    	query : {method:'GET', params:{}, isArray:false, encoding:true},
 		    });
 		    
-		    resource = TokenHandler.wrapSignatureActions( resource, ["query"] , ["GET"], ["/payments/balances/"]);
+		    resource = TokenHandler.wrapSignatureActions( resource, ["query"] , ["GET"], ["/payments/balances"]);
 
   			return resource;
 		});	
@@ -43,7 +43,7 @@ angular.module('publisherApi', ['ngResource'], function($provide) {
 		    	query : {method:'GET', params:{}, isArray:false, encoding:true},
 		    });
 		    
-		    resource = TokenHandler.wrapSignatureActions( resource, ["query"] , ["GET"], ["/payments/bankaccounts/"]);
+		    resource = TokenHandler.wrapSignatureActions( resource, ["query"] , ["GET"], ["/payments/bankaccounts"]);
 
   			return resource;
 		});	
@@ -76,12 +76,6 @@ angular.module('publisherApi', ['ngResource'], function($provide) {
   			return resource;
 		});
 		
-	  $provide.factory('Connect', function($resource){
-		  return $resource('/assets/rest/connect' , {}, {
-		    	get : {method:'GET', params:{}, isArray:false}
-		    });
-		});
-
 	  $provide.factory('TokenHandler', function(zxConnect, signature) {
 		  var tokenHandler = {};
 

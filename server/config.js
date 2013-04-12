@@ -13,4 +13,4 @@ config.api.api_version = '2011-03-01';
 config.api.secret_key = ''; 
 config.api.connect_id = '7C800204645B3065D201'; 
 
-module.exports = config;l
+module.exports = config;

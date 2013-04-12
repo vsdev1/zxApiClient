@@ -61,7 +61,7 @@ angular.module('publisherApi', ['ngResource'], function($provide) {
 		    	query : {method:'GET', params:{currency:'EUR',groupby:'month',fromdate:'2012-01-01', todate:'2012-12-02'}, isArray:false, encoding:true},
 		    });
 		    
-		    resource = TokenHandler.wrapSignatureActions( resource, ["query"] , ["GET"], ["/reports/basic/"]);
+		    resource = TokenHandler.wrapSignatureActions( resource, ["query"] , ["GET"], ["/reports/basic"]);
 
   			return resource;
 		});

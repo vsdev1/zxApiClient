@@ -72,3 +72,7 @@ zxApiClient.controller('ProfileController', function ProfileController($scope, P
           }
         );
 });
+
+// this is for minified angularJS script
+ProfileController.$inject = ['$scope', 'Profile', 'Product', 'Programs', 'ProgramApplication', 'Report', 'Balance', 'BankAccounts'];
+

@@ -1,6 +1,9 @@
 'use strict';
 
-/* zanox publisher API facade */
+/* zanox publisher API facade 
+ *
+ * TODO: leads and sales (see http://wiki.zanox.com/en/Web_Services)
+ */
 
 angular.module('publisherApi', ['ngResource'], function($provide) {
 

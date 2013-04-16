@@ -1,7 +1,7 @@
 'use strict';
 
 // TODO: only the dependency to Profile should be here, the others are just for testing
-zxApiClient.controller('ProfileController', function ProfileController($scope, Profile, Product, Programs, ProgramApplication, Report, Balance, BankAccounts) {
+zxApiClient.controller('ProfileController', function ProfileController($scope, Profile, Product, Programs, ProgramApplication, Report, Balance, BankAccounts, Incentives, ExclusiveIncentives) {
         var profile = Profile.query({}, 
           function() {
             console.log('Got profile: ', profile.profileItem[0]);
@@ -69,6 +69,22 @@ zxApiClient.controller('ProfileController', function ProfileController($scope, P
           }, 
           function(error) {
           	console.log('onError for bank accounts, TODO: this is the error callback and i do not understand why it is fired:', error);
+          }
+        );
+        var incentives = Incentives.query({}, 
+          function() {
+            console.log('Got incentives: ', incentives);
+          }, 
+          function(error) {
+          	console.log('onError for incentives, TODO: this is the error callback and i do not understand why it is fired:', error);
+          }
+        );
+        var exclusiveIncentives = ExclusiveIncentives.query({}, 
+          function() {
+            console.log('Got exclusiveIncentives: ', exclusiveIncentives);
+          }, 
+          function(error) {
+          	console.log('onError for exclusiveIncentives, TODO: this is the error callback and i do not understand why it is fired:', error);
           }
         );
 });

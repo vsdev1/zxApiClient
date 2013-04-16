@@ -76,6 +76,25 @@ angular.module('publisherApi', ['ngResource'], function($provide) {
   			return resource;
 		});
 		
+	  $provide.factory('Incentives', function($resource, TokenHandler){
+		    var resource = $resource(publisherApiBasePath + 'incentives/' , {}, {
+		    	get : {method:'GET', params:{}, isArray:false, encoding:true}
+		    });
+		    
+		    resource = TokenHandler.wrapActions(resource, ["query"]);
+
+  			return resource;
+		});
+		$provide.factory('ExclusiveIncentives', function($resource, TokenHandler){
+		    var resource = $resource(publisherApiBasePath + 'incentives/exclusive/' , {}, {
+		    	query : {method:'GET', params:{}, isArray:false, encoding:true},
+		    });
+		    
+		    resource = TokenHandler.wrapSignatureActions( resource, ["query"] , ["GET"], ["/incentives/exclusive"]);
+
+  			return resource;
+		});
+		
 	  $provide.factory('TokenHandler', function(zxConnect, signature) {
 		  var tokenHandler = {};
 

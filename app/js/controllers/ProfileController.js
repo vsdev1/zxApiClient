@@ -9,10 +9,7 @@ zxApiClient.controller('ProfileController', function ProfileController($scope, P
             $scope.profile = profile.profileItem[0];
           }, 
           function(error) {
-          	console.log('onError for profile, TODO: this is the error callback and i do not understand why it is fired: ', error);
-            console.log('Got profile in error callback: ', profile.profileItem[0]);
-
-            $scope.profile = profile.profileItem[0];
+          	console.log('onError for profile: ', error);
           }
         );
 
@@ -42,7 +39,7 @@ zxApiClient.controller('ProfileController', function ProfileController($scope, P
             console.log('Got program applications: ', programApplications);
           }, 
           function(error) {
-          	console.log('onError for program applications, TODO: this is the error callback and i do not understand why it is fired: ', error);
+          	console.log('onError for program applications: ', error);
           }
         );
 
@@ -51,7 +48,7 @@ zxApiClient.controller('ProfileController', function ProfileController($scope, P
             console.log('Got report: ', report);
           }, 
           function(error) {
-          	console.log('onError for report, TODO: this is the error callback and i do not understand why it is fired:', error);
+          	console.log('onError for report: ', error);
           }
         );
 
@@ -60,7 +57,7 @@ zxApiClient.controller('ProfileController', function ProfileController($scope, P
             console.log('Got balance: ', balance);
           }, 
           function(error) {
-          	console.log('onError for balance, TODO: this is the error callback and i do not understand why it is fired:', error);
+          	console.log('onError for balance: ', error);
           }
         );
         var bankAccounts = BankAccounts.query({}, 
@@ -68,7 +65,7 @@ zxApiClient.controller('ProfileController', function ProfileController($scope, P
             console.log('Got bank accounts: ', bankAccounts);
           }, 
           function(error) {
-          	console.log('onError for bank accounts, TODO: this is the error callback and i do not understand why it is fired:', error);
+          	console.log('onError for bank accounts: ', error);
           }
         );
         var incentives = Incentives.query({}, 
@@ -76,7 +73,7 @@ zxApiClient.controller('ProfileController', function ProfileController($scope, P
             console.log('Got incentives: ', incentives);
           }, 
           function(error) {
-          	console.log('onError for incentives, TODO: this is the error callback and i do not understand why it is fired:', error);
+          	console.log('onError for incentives: ', error);
           }
         );
         var exclusiveIncentives = ExclusiveIncentives.query({}, 
@@ -84,11 +81,11 @@ zxApiClient.controller('ProfileController', function ProfileController($scope, P
             console.log('Got exclusiveIncentives: ', exclusiveIncentives);
           }, 
           function(error) {
-          	console.log('onError for exclusiveIncentives, TODO: this is the error callback and i do not understand why it is fired:', error);
+          	console.log('onError for exclusiveIncentives: ', error);
           }
         );
 });
 
 // this is for minified angularJS script
-ProfileController.$inject = ['$scope', 'Profile', 'Product', 'Programs', 'ProgramApplication', 'Report', 'Balance', 'BankAccounts'];
+//ProfileController.$inject = ['$scope', 'Profile', 'Product', 'Programs', 'ProgramApplication', 'Report', 'Balance', 'BankAccounts'];
 

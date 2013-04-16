@@ -151,14 +151,13 @@ angular.module('publisherApi', ['ngResource'], function($provide) {
 		    // create new action wrapping the original
 		    // and sending token
 		    
-		    resource[action] = function(data, header, success, error) {
+		    resource[action] = function(data, success, error) {
 		      var signatureHolder = signature.createSignature(protocol, uri, zxConnect.getCredentials().secretKey)
 		      return resource['_' + action](
 		        // call action with provided data and
 		        // appended access_token
 		        angular.extend({}, data || {},
 		          {connectId: zxConnect.getCredentials().connectId, nonce : signatureHolder.nonce, date : signatureHolder.timestamp, signature: signatureHolder.signature}),
-		        //headers: { 'Auth-Nonce-Response': 'adad'},
 		        success,
 		        error
 		      );

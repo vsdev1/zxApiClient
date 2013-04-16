@@ -1,7 +1,7 @@
 'use strict';
 
 // TODO: only the dependency to Profile should be here, the others are just for testing
-zxApiClient.controller('ProfileController', function ProfileController($scope, Profile, Product, Programs, ProgramApplication, Report, Balance, BankAccounts, Incentives, ExclusiveIncentives) {
+zxApiClient.controller('ProfileController', function ProfileController($scope, Profile, Product, Programs, ProgramCategories, ProgramApplication, Report, Balance, BankAccounts, Incentives, ExclusiveIncentives) {
         var profile = Profile.query({}, 
           function() {
             console.log('Got profile: ', profile.profileItem[0]);
@@ -24,13 +24,20 @@ zxApiClient.controller('ProfileController', function ProfileController($scope, P
         );
 
         var programs = Programs.query({}, 
-//          function() {
           function() {
             console.log('Got programs: ', programs);
-//            console.log('Got program data: ', data);
           }, 
           function(error) {
           	console.log('onError for programs: ', error);
+          }
+        );
+
+        var programCategories = ProgramCategories.query({}, 
+          function() {
+            console.log('Got programCategories: ', programCategories);
+          }, 
+          function(error) {
+          	console.log('onError for programCategoriesl: ', error);
           }
         );
 
@@ -60,6 +67,7 @@ zxApiClient.controller('ProfileController', function ProfileController($scope, P
           	console.log('onError for balance: ', error);
           }
         );
+
         var bankAccounts = BankAccounts.query({}, 
           function() {
             console.log('Got bank accounts: ', bankAccounts);
@@ -68,6 +76,7 @@ zxApiClient.controller('ProfileController', function ProfileController($scope, P
           	console.log('onError for bank accounts: ', error);
           }
         );
+
         var incentives = Incentives.query({}, 
           function() {
             console.log('Got incentives: ', incentives);
@@ -76,6 +85,7 @@ zxApiClient.controller('ProfileController', function ProfileController($scope, P
           	console.log('onError for incentives: ', error);
           }
         );
+        
         var exclusiveIncentives = ExclusiveIncentives.query({}, 
           function() {
             console.log('Got exclusiveIncentives: ', exclusiveIncentives);

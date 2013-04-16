@@ -68,7 +68,7 @@ angular.module('publisherApi', ['ngResource'], function($provide) {
 		
 	  $provide.factory('Programs', function($resource, TokenHandler){
 		    var resource = $resource(publisherApiBasePath + 'programs/' , {}, {
-		    	get : {method:'GET', params:{}, isArray:false, encoding:true}
+		    	query : {method:'GET', params:{}, isArray:false, encoding:true}
 		    });
 		    
 		    resource = TokenHandler.wrapActions(resource, ["query"]);
@@ -78,7 +78,7 @@ angular.module('publisherApi', ['ngResource'], function($provide) {
 		
 	  $provide.factory('Incentives', function($resource, TokenHandler){
 		    var resource = $resource(publisherApiBasePath + 'incentives/' , {}, {
-		    	get : {method:'GET', params:{}, isArray:false, encoding:true}
+		    	query : {method:'GET', params:{}, isArray:false, encoding:true}
 		    });
 		    
 		    resource = TokenHandler.wrapActions(resource, ["query"]);
